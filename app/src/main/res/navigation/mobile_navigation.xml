@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="ru.lacredin.testtasksociality.ui.locations.LocationsFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_location" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="ru.lacredin.testtasksociality.ui.personage.PersonageFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_personage" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="ru.lacredin.testtasksociality.ui.episode.ListEpisodeFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_list_episode" />
+</navigation>
