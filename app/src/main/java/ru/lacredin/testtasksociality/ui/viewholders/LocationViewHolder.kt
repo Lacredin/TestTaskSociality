@@ -17,12 +17,13 @@ class LocationViewHolder(
         location_dimension.text = data?.dimension
     }
 
-    fun bind(data: LocationsItem) {
+    fun bind(data: LocationsItem, clickItem: (LocationsItem) -> Unit) {
         this.data = data
         itemView.apply {
             init()
+            location_main_box.setOnClickListener {
+                clickItem(data)
+            }
         }
     }
-
-
 }

@@ -8,16 +8,20 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import ru.lacredin.testtasksociality.databinding.FragmentLocationBinding
+import ru.lacredin.testtasksociality.R
+import ru.lacredin.testtasksociality.databinding.FragmentListLocationBinding
+import ru.lacredin.testtasksociality.models.LocationsItem
 import ru.lacredin.testtasksociality.utils.PaginationListener
 import ru.lacredin.testtasksociality.utils.RecycleAdapter
 
 class LocationsFragment : Fragment() {
 
     private lateinit var locationsViewModel: LocationsViewModel
-    private var _binding: FragmentLocationBinding? = null
+    private var _binding: FragmentListLocationBinding? = null
     private val binding get() = _binding!!
 
     lateinit var adapter: RecycleAdapter
@@ -30,9 +34,13 @@ class LocationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         locationsViewModel = ViewModelProvider(this).get(LocationsViewModel::class.java)
-        _binding = FragmentLocationBinding.inflate(inflater, container, false)
+        _binding = FragmentListLocationBinding.inflate(inflater, container, false)
 
-        adapter = RecycleAdapter(context)
+        adapter = RecycleAdapter(context) {
+            findNavController().navigate(R.id.detailLocationFragment, Bundle().apply {
+                putParcelable("LOCATIONS", it as LocationsItem)
+            })
+        }
 
         locationsViewModel.listItems.observe(viewLifecycleOwner) {
             adapter.listData.clear()

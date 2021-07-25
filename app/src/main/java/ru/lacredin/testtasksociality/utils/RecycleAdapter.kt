@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import okhttp3.internal.notify
 import okhttp3.internal.notifyAll
 import ru.lacredin.testtasksociality.R
 import ru.lacredin.testtasksociality.models.LocationsItem
@@ -13,14 +12,15 @@ import ru.lacredin.testtasksociality.ui.viewholders.LocationViewHolder
 
 
 class RecycleAdapter(
-    val context: Context?
+    val context: Context?,
+    val clickItem: (Any) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var listData: MutableList<Any> = mutableListOf()
 
     internal var showLoadItem = false
 
     @Synchronized
-    fun setStatusLoadItem(showLoad: Boolean){
+    fun setStatusLoadItem(showLoad: Boolean) {
         showLoadItem = showLoad
         notifyAll()
     }
@@ -40,7 +40,7 @@ class RecycleAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (!checkItemLoad(position))
-            (holder as LocationViewHolder).bind(listData[position] as LocationsItem)
+            (holder as LocationViewHolder).bind(listData[position] as LocationsItem, ::clickItem)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -65,5 +65,9 @@ class RecycleAdapter(
     companion object {
         const val DATA_ITEM = 1
         const val LOAD_ITEM = 2
+    }
+
+    fun clickItem(data: Any) {
+        this.clickItem.invoke(data)
     }
 }

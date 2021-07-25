@@ -3,23 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_list_locations">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_list_locations"
         android:name="ru.lacredin.testtasksociality.ui.locations.LocationsFragment"
         android:label="@string/title_locations"
-        tools:layout="@layout/fragment_location" />
+        tools:layout="@layout/fragment_list_location" >
+        <action
+            android:id="@+id/action_navigation_home_to_detailLocationFragment"
+            app:destination="@id/detailLocationFragment"
+            />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_list_personage"
         android:name="ru.lacredin.testtasksociality.ui.personage.PersonageFragment"
         android:label="@string/title_personage"
-        tools:layout="@layout/fragment_personage" />
+        tools:layout="@layout/fragment_list_personage" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_list_episode"
         android:name="ru.lacredin.testtasksociality.ui.episode.ListEpisodeFragment"
         android:label="@string/title_episodes"
         tools:layout="@layout/fragment_list_episode" />
+    <fragment
+        android:id="@+id/detailLocationFragment"
+        android:name="ru.lacredin.testtasksociality.ui.locations.DetailLocationFragment"
+        android:label="DetailLocationFragment"
+        tools:layout="@layout/fragment_detail_location"
+        />
+
+
 </navigation>

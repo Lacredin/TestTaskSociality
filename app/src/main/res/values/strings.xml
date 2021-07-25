@@ -4,4 +4,7 @@
     <string name="title_personage">Characters</string>
     <string name="title_episodes">Episodes</string>
     <string name="unknown_error">Unknown_error</string>
+    <string name="name_location">Name</string>
+    <string name="type_location">Type</string>
+    <string name="dimension_location">Dimension</string>
 </resources>
