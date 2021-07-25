@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="ru.lacredin.testtasksociality.ui.locations.LocationsFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_locations"
         tools:layout="@layout/fragment_location" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="ru.lacredin.testtasksociality.ui.personage.PersonageFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_personage"
         tools:layout="@layout/fragment_personage" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="ru.lacredin.testtasksociality.ui.episode.ListEpisodeFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_episodes"
         tools:layout="@layout/fragment_list_episode" />
 </navigation>
