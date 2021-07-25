@@ -3,13 +3,20 @@ package ru.lacredin.testtasksociality.ui.locations
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.lacredin.testtasksociality.App
 import ru.lacredin.testtasksociality.models.LocationsItem
 import ru.lacredin.testtasksociality.models.fragment.StateFragment
 import ru.lacredin.testtasksociality.repository.Repository
+import javax.inject.Inject
 
-class DetailLocationViewModel : ViewModel() {
+class DetailLocationViewModel @Inject constructor(): ViewModel() {
 
-    val repository = Repository()
+    init {
+        App.appComponent.inject(this)
+    }
+
+    @Inject
+    lateinit var repository: Repository
 
     var dataLocation: LocationsItem? = null
     protected val _data = MutableLiveData<LocationsItem>()

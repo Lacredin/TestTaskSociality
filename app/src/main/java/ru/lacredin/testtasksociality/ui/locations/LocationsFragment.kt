@@ -7,20 +7,21 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import ru.lacredin.testtasksociality.App
 import ru.lacredin.testtasksociality.R
 import ru.lacredin.testtasksociality.databinding.FragmentListLocationBinding
 import ru.lacredin.testtasksociality.models.LocationsItem
 import ru.lacredin.testtasksociality.utils.PaginationListener
 import ru.lacredin.testtasksociality.utils.RecycleAdapter
+import javax.inject.Inject
 
 class LocationsFragment : Fragment() {
 
-    private lateinit var locationsViewModel: LocationsViewModel
+    @Inject
+    lateinit var locationsViewModel: LocationsViewModel
     private var _binding: FragmentListLocationBinding? = null
     private val binding get() = _binding!!
 
@@ -28,12 +29,16 @@ class LocationsFragment : Fragment() {
     lateinit var paginationListener: PaginationListener
     var loading = true
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.appComponent.inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        locationsViewModel = ViewModelProvider(this).get(LocationsViewModel::class.java)
         _binding = FragmentListLocationBinding.inflate(inflater, container, false)
 
         adapter = RecycleAdapter(context) {

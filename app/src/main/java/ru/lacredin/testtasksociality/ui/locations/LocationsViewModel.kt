@@ -1,14 +1,21 @@
-  package ru.lacredin.testtasksociality.ui.locations
+package ru.lacredin.testtasksociality.ui.locations
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.lacredin.testtasksociality.App
 import ru.lacredin.testtasksociality.R
 import ru.lacredin.testtasksociality.models.LocationsItem
 import ru.lacredin.testtasksociality.repository.Repository
+import javax.inject.Inject
 
-class LocationsViewModel : ViewModel() {
+class LocationsViewModel @Inject constructor() : ViewModel() {
 
-    val repository = Repository()
+    init {
+        App.appComponent.inject(this)
+    }
+
+    @Inject
+    lateinit var repository: Repository
     var listLocations = mutableListOf<LocationsItem>()
     val listItems = MutableLiveData<List<LocationsItem>>()
     val listNextPage = MutableLiveData<List<LocationsItem>>()

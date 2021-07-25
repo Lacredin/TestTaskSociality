@@ -6,9 +6,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.lacredin.testtasksociality.utils.SERVER_ADDR
+import javax.inject.Inject
 
 
-object RestProvider {
+class RestProvider @Inject constructor() {
 
     private var baseUrl = SERVER_ADDR
     private var instance: RestProvider? = null
