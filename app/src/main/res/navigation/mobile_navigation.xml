@@ -13,7 +13,8 @@
         <action
             android:id="@+id/action_navigation_home_to_detailLocationFragment"
             app:destination="@id/detailLocationFragment"
-            />
+            app:popUpTo="@id/navigation_list_locations"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -30,9 +31,8 @@
     <fragment
         android:id="@+id/detailLocationFragment"
         android:name="ru.lacredin.testtasksociality.ui.locations.DetailLocationFragment"
-        android:label="DetailLocationFragment"
-        tools:layout="@layout/fragment_detail_location"
-        />
+        android:label="@string/detial_location_fragment_title"
+        tools:layout="@layout/fragment_detail_location" />
 
 
 </navigation>

@@ -1,11 +1,13 @@
 package ru.lacredin.testtasksociality
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.lacredin.testtasksociality.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +27,17 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_list_locations, R.id.navigation_list_personage, R.id.navigation_list_episode
+                R.id.navigation_list_locations,
+                R.id.navigation_list_personage,
+                R.id.navigation_list_episode
             )
         )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return Navigation.findNavController(this, R.id.nav_host_fragment_activity_main).navigateUp()
+                || super.onSupportNavigateUp();
     }
 }
