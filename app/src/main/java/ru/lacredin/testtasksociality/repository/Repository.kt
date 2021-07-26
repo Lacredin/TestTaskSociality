@@ -31,4 +31,13 @@ class Repository @Inject constructor() {
 
     fun loadPageEpisode(url: String) = restProvider.restAPI.getPageEpisodes(url)
         .standardThread()
+
+    fun loadCharacter(id: String? = null) = restProvider.restAPI.getCharacter(id)
+        .standardThread()
+
+    fun loadAllCharacter() = restProvider.restAPI.getCharacters()
+        .standardThread()
+
+    fun loadPageCharacter(url: String) = restProvider.restAPI.getPageCharacters(url)
+        .standardThread()
 }

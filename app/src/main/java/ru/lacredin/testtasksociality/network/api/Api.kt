@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Url
 import ru.lacredin.testtasksociality.models.locations.LocationModel
 import ru.lacredin.testtasksociality.models.ResultListModel
+import ru.lacredin.testtasksociality.models.character.CharacterModel
 import ru.lacredin.testtasksociality.models.episodes.EpisodeModel
 
 interface Api {
@@ -27,4 +28,13 @@ interface Api {
 
     @GET
     fun getPageEpisodes(@Url url: String): Single<ResultListModel<EpisodeModel>>
+
+    @GET("character/{id}")
+    fun getCharacter(@Path("id") id: String?): Single<CharacterModel>
+
+    @GET("character")
+    fun getCharacters(): Single<ResultListModel<CharacterModel>>
+
+    @GET
+    fun getPageCharacters(@Url url: String): Single<ResultListModel<CharacterModel>>
 }

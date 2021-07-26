@@ -7,33 +7,53 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ru.lacredin.testtasksociality.App
+import ru.lacredin.testtasksociality.R
+import ru.lacredin.testtasksociality.databinding.FragmentListLocationBinding
 import ru.lacredin.testtasksociality.databinding.FragmentListPersonageBinding
+import ru.lacredin.testtasksociality.ui.base.BaseListFragment
+import ru.lacredin.testtasksociality.ui.episode.ListEpisodeViewModel
+import ru.lacredin.testtasksociality.utils.CustomRecycleAdapter
+import javax.inject.Inject
 
-class PersonageFragment : Fragment() {
+class PersonageFragment : BaseListFragment() {
 
-    private lateinit var personageViewModel: PersonageViewModel
-    private var _binding: FragmentListPersonageBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    @Inject
+    lateinit var viewModel: PersonageViewModel
+    private var _binding: FragmentListLocationBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.appComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        personageViewModel =
-            ViewModelProvider(this).get(PersonageViewModel::class.java)
+        _binding = FragmentListLocationBinding.inflate(inflater, container, false)
 
-        _binding = FragmentListPersonageBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        adapter = CustomRecycleAdapter(context)
 
-        val textView: TextView = binding.textDashboard
-        personageViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
-        return root
+        initListViewModel(viewModel, binding.swipeRefresheBox)
+
+        return binding.root
+    }
+
+    override fun getIdDetailFragment() = R.id.detailEpisodeFragment
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        settingRecycleView(binding.listElements, viewModel)
+
+        binding.swipeRefresheBox.setOnRefreshListener {
+            viewModel.loadBaseRequest()
+        }
+
+        viewModel.loadBaseRequest()
     }
 
     override fun onDestroyView() {

@@ -10,6 +10,8 @@ import ru.lacredin.testtasksociality.ui.locations.DetailLocationFragment
 import ru.lacredin.testtasksociality.ui.locations.DetailLocationViewModel
 import ru.lacredin.testtasksociality.ui.locations.LocationsFragment
 import ru.lacredin.testtasksociality.ui.locations.LocationsViewModel
+import ru.lacredin.testtasksociality.ui.personage.PersonageFragment
+import ru.lacredin.testtasksociality.ui.personage.PersonageViewModel
 
 @Component
 interface ApplicationComponent {
@@ -17,6 +19,7 @@ interface ApplicationComponent {
     fun inject(viewModel: LocationsViewModel)
     fun inject(viewModel: ListEpisodeViewModel)
     fun inject(viewModel: DetailEpisodeViewModel)
+    fun inject(viewModel: PersonageViewModel)
 
     fun inject(repository: Repository)
 
@@ -24,4 +27,5 @@ interface ApplicationComponent {
     fun inject(fragment: LocationsFragment)
     fun inject(fragment: ListEpisodeFragment)
     fun inject(fragment: DetailEpisodeFragment)
+    fun inject(fragment: PersonageFragment)
 }
