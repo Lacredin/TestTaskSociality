@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import ru.lacredin.testtasksociality.App
 import ru.lacredin.testtasksociality.R
 import ru.lacredin.testtasksociality.databinding.FragmentListLocationBinding
-import ru.lacredin.testtasksociality.models.LocationsItem
+import ru.lacredin.testtasksociality.models.locations.LocationModel
 import ru.lacredin.testtasksociality.utils.PaginationListener
 import ru.lacredin.testtasksociality.utils.RecycleAdapter
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class LocationsFragment : Fragment() {
 
         adapter = RecycleAdapter(context) {
             findNavController().navigate(R.id.detailLocationFragment, Bundle().apply {
-                putParcelable("LOCATIONS", it as LocationsItem)
+                putParcelable("LOCATIONS", it as LocationModel)
             })
         }
 
@@ -115,6 +115,4 @@ class LocationsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

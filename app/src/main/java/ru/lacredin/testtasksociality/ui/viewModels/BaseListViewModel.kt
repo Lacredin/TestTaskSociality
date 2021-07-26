@@ -1,33 +1,39 @@
-package ru.lacredin.testtasksociality.ui.locations
+package ru.lacredin.testtasksociality.ui.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.lacredin.testtasksociality.App
+import io.reactivex.rxjava3.core.Single
 import ru.lacredin.testtasksociality.R
-import ru.lacredin.testtasksociality.models.locations.LocationModel
-import ru.lacredin.testtasksociality.repository.Repository
-import javax.inject.Inject
+import ru.lacredin.testtasksociality.models.ResultListModel
+import ru.lacredin.testtasksociality.ui.items.BaseItem
 
-class LocationsViewModel @Inject constructor() : ViewModel() {
+abstract class BaseListViewModel<T> : ViewModel() {
 
-    init {
-        App.appComponent.inject(this)
-    }
-
-    @Inject
-    lateinit var repository: Repository
-    var listLocations = mutableListOf<LocationModel>()
-    val listItems = MutableLiveData<List<LocationModel>>()
-    val listNextPage = MutableLiveData<List<LocationModel>>()
-    val listPrevPage = MutableLiveData<List<LocationModel>>()
+    var listLocations = mutableListOf<T>()
+    val listItems = MutableLiveData<List<BaseItem>>()
+    val listNextPage = MutableLiveData<List<BaseItem>>()
+    val listPrevPage = MutableLiveData<List<BaseItem>>()
     val loadData = MutableLiveData<Boolean>()
     val message = MutableLiveData<@androidx.annotation.StringRes Int>()
     var nextPageLocation: String? = null
     var prevPageLocation: String? = null
+    val openItemFragment = MutableLiveData<Int?>()
 
-    fun loadAllLocations() {
+    abstract fun getBaseRequest(): Single<ResultListModel<T>>
+    abstract fun getPageRequest(pageUrl: String): Single<ResultListModel<T>>
+    abstract fun createItems(data: List<T>): List<BaseItem>
+
+    fun openFragment(id: Int) {
+        openItemFragment.postValue(id)
+    }
+
+    fun clearOpenFragment() {
+        openItemFragment.postValue(null)
+    }
+
+    fun loadBaseRequest() {
         loadData.postValue(true)
-        repository.loadAllLocation()
+        getBaseRequest()
             .map {
                 nextPageLocation = it.info?.next
                 prevPageLocation = it.info?.prev
@@ -40,7 +46,7 @@ class LocationsViewModel @Inject constructor() : ViewModel() {
             .doFinally { loadData.postValue(false) }
             .subscribe(
                 {
-                    listItems.postValue(listLocations)
+                    listItems.postValue(createItems(listLocations))
                 },
                 {
                     message.postValue(R.string.unknown_error)
@@ -50,7 +56,7 @@ class LocationsViewModel @Inject constructor() : ViewModel() {
 
     fun loadNextLocation() {
         loadData.postValue(true)
-        repository.loadPageLocation(nextPageLocation ?: return)
+        getPageRequest(nextPageLocation ?: return)
             .map {
                 nextPageLocation = it.info?.next
                 prevPageLocation = it.info?.prev
@@ -61,7 +67,7 @@ class LocationsViewModel @Inject constructor() : ViewModel() {
             .doFinally { loadData.postValue(false) }
             .subscribe(
                 {
-                    listItems.postValue(listLocations)
+                    listItems.postValue(createItems(listLocations))
                 },
                 {
                     message.postValue(R.string.unknown_error)
@@ -71,7 +77,7 @@ class LocationsViewModel @Inject constructor() : ViewModel() {
 
     fun loadPrevLocation() {
         loadData.postValue(true)
-        repository.loadPageLocation(prevPageLocation ?: return)
+        getPageRequest(prevPageLocation ?: return)
             .map {
                 nextPageLocation = it.info?.next
                 prevPageLocation = it.info?.prev
@@ -82,7 +88,7 @@ class LocationsViewModel @Inject constructor() : ViewModel() {
             .doFinally { loadData.postValue(false) }
             .subscribe(
                 {
-                    listItems.postValue(listLocations)
+                    listItems.postValue(createItems(listLocations))
                 },
                 {
                     message.postValue(R.string.unknown_error)

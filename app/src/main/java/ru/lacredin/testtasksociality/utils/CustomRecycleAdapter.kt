@@ -6,16 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.internal.notifyAll
 import ru.lacredin.testtasksociality.R
-import ru.lacredin.testtasksociality.models.locations.LocationModel
-import ru.lacredin.testtasksociality.ui.viewholders.LoadItemViewHolder
-import ru.lacredin.testtasksociality.ui.viewholders.LocationViewHolder
+import ru.lacredin.testtasksociality.ui.items.BaseItem
+import ru.lacredin.testtasksociality.ui.viewholders.UniversalViewHolder
 
 
-class RecycleAdapter(
+class CustomRecycleAdapter(
     val context: Context?,
-    val clickItem: (Any) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var listData: MutableList<Any> = mutableListOf()
+    var listData: MutableList<BaseItem> = mutableListOf()
 
     internal var showLoadItem = false
 
@@ -26,28 +24,23 @@ class RecycleAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val v: RecyclerView.ViewHolder = if (DATA_ITEM == viewType) {
-            LayoutInflater.from(context).inflate(R.layout.item_location, parent, false).let {
-                LocationViewHolder(it)
-            }
-        } else {
-            LayoutInflater.from(context).inflate(R.layout.item_load_elements, parent, false).let {
-                LoadItemViewHolder(it)
-            }
+        val v = LayoutInflater.from(context).inflate(viewType, parent, false).let {
+            UniversalViewHolder(it)
         }
+
         return v
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (!checkItemLoad(position))
-            (holder as LocationViewHolder).bind(listData[position] as LocationModel, ::clickItem)
+            (holder as UniversalViewHolder).bind(listData[position])
     }
 
     override fun getItemViewType(position: Int): Int {
         if (showLoadItem && position == getSize() - 1) {
-            return LOAD_ITEM
+            return R.layout.item_load_elements
         }
-        return DATA_ITEM
+        return listData[position].getLayoutId()
     }
 
     override fun getItemCount(): Int {
@@ -60,14 +53,5 @@ class RecycleAdapter(
 
     fun checkItemLoad(position: Int): Boolean {
         return showLoadItem && position == getSize() - 1
-    }
-
-    companion object {
-        const val DATA_ITEM = 1
-        const val LOAD_ITEM = 2
-    }
-
-    fun clickItem(data: Any) {
-        this.clickItem.invoke(data)
     }
 }

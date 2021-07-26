@@ -2,7 +2,7 @@ package ru.lacredin.testtasksociality.repository
 
 import ru.lacredin.testtasksociality.App
 import ru.lacredin.testtasksociality.extensions.standardThread
-import ru.lacredin.testtasksociality.models.LocationsModel
+import ru.lacredin.testtasksociality.models.locations.LocationModel
 import ru.lacredin.testtasksociality.network.api.RestProvider
 import javax.inject.Inject
 
@@ -20,6 +20,15 @@ class Repository @Inject constructor() {
     fun loadAllLocation() = restProvider.restAPI.getLocations()
         .standardThread()
 
-    fun loadPageLocation(url: String) = restProvider.restAPI.getPage<LocationsModel>(url)
+    fun loadPageLocation(url: String) = restProvider.restAPI.getPageLocation<LocationModel>(url)
+        .standardThread()
+
+    fun loadEpisode(id: String? = null) = restProvider.restAPI.getEpisode(id)
+        .standardThread()
+
+    fun loadAllEpisode() = restProvider.restAPI.getEpisodes()
+        .standardThread()
+
+    fun loadPageEpisode(url: String) = restProvider.restAPI.getPageEpisodes(url)
         .standardThread()
 }

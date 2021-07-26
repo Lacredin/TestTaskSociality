@@ -5,9 +5,9 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class LocationsModel(
+data class ResultListModel<T>(
     @Json(name = "info")
     var info: Info? = null,
     @Json(name = "results")
-    var results: List<LocationsItem>? = null
+    var results: List<T>? = null
 )

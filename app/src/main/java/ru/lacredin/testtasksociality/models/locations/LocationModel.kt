@@ -1,4 +1,4 @@
-package ru.lacredin.testtasksociality.models
+package ru.lacredin.testtasksociality.models.locations
 
 
 import android.os.Parcelable
@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
-data class LocationsItem(
+data class LocationModel(
     @Json(name = "created")
     var created: String? = null,
     @Json(name = "dimension")

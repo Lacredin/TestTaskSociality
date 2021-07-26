@@ -10,7 +10,7 @@ import ru.lacredin.testtasksociality.R
 import ru.lacredin.testtasksociality.databinding.FragmentDetailLocationBinding
 import ru.lacredin.testtasksociality.extensions.gone
 import ru.lacredin.testtasksociality.extensions.visible
-import ru.lacredin.testtasksociality.models.LocationsItem
+import ru.lacredin.testtasksociality.models.locations.LocationModel
 import ru.lacredin.testtasksociality.models.fragment.StateFragment
 import javax.inject.Inject
 
@@ -32,7 +32,7 @@ class DetailLocationFragment : Fragment() {
     ): View? {
         binding = FragmentDetailLocationBinding.inflate(inflater, container, false)
 
-        val location = arguments?.getParcelable<LocationsItem>("LOCATIONS")
+        val location = arguments?.getParcelable<LocationModel>("LOCATIONS")
         viewModel.init(location)
 
         viewModel.data.observe(viewLifecycleOwner, ::setData)
@@ -49,7 +49,7 @@ class DetailLocationFragment : Fragment() {
         return binding?.root
     }
 
-    fun setData(data: LocationsItem) {
+    fun setData(data: LocationModel) {
         binding?.nameLocationValue?.text = data.name
         binding?.typeLocationValue?.text = data.type
         binding?.dimensionLocationValue?.text = data.dimension

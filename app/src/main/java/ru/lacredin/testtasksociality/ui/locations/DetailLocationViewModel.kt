@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.lacredin.testtasksociality.App
-import ru.lacredin.testtasksociality.models.LocationsItem
+import ru.lacredin.testtasksociality.models.locations.LocationModel
 import ru.lacredin.testtasksociality.models.fragment.StateFragment
 import ru.lacredin.testtasksociality.repository.Repository
 import javax.inject.Inject
@@ -18,16 +18,16 @@ class DetailLocationViewModel @Inject constructor(): ViewModel() {
     @Inject
     lateinit var repository: Repository
 
-    var dataLocation: LocationsItem? = null
-    protected val _data = MutableLiveData<LocationsItem>()
-    val data: LiveData<LocationsItem>
+    var dataLocation: LocationModel? = null
+    protected val _data = MutableLiveData<LocationModel>()
+    val data: LiveData<LocationModel>
         get() = _data
 
     protected val _state = MutableLiveData<Pair<StateFragment, String?>>()
     val state: LiveData<Pair<StateFragment, String?>>
         get() = _state
 
-    fun init(data: LocationsItem?) {
+    fun init(data: LocationModel?) {
         dataLocation = data
         _state.postValue(StateFragment.LOAD_DATA to null)
         dataLocation?.id?.let {
