@@ -27,12 +27,21 @@
         android:id="@+id/navigation_list_episode"
         android:name="ru.lacredin.testtasksociality.ui.episode.ListEpisodeFragment"
         android:label="@string/title_episodes"
-        tools:layout="@layout/fragment_list_episode" />
+        tools:layout="@layout/fragment_list_episode" >
+        <action
+            android:id="@+id/action_navigation_list_episode_to_detailEpisodeFragment"
+            app:destination="@id/detailEpisodeFragment"
+            app:popUpTo="@id/navigation_list_episode" />
+    </fragment>
     <fragment
         android:id="@+id/detailLocationFragment"
         android:name="ru.lacredin.testtasksociality.ui.locations.DetailLocationFragment"
         android:label="@string/detial_location_fragment_title"
         tools:layout="@layout/fragment_detail_location" />
+    <fragment
+        android:id="@+id/detailEpisodeFragment"
+        android:name="ru.lacredin.testtasksociality.ui.episode.DetailEpisodeFragment"
+        android:label="@string/detail_episode_fragment_title" />
 
 
 </navigation>

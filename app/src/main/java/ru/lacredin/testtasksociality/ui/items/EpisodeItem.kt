@@ -15,7 +15,7 @@ class EpisodeItem(
         viewItem.apply {
             location_name.text = data.name
             location_type.text = data.episode
-            location_dimension.text = data.created
+            location_dimension.text = data.airDate
             location_main_box.setOnClickListener { clickItem(this@EpisodeItem) }
         }
     }
