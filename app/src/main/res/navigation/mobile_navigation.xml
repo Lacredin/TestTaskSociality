@@ -21,7 +21,12 @@
         android:id="@+id/navigation_list_personage"
         android:name="ru.lacredin.testtasksociality.ui.personage.PersonageFragment"
         android:label="@string/title_personage"
-        tools:layout="@layout/fragment_list_personage" />
+        tools:layout="@layout/fragment_list_personage" >
+        <action
+            android:id="@+id/action_navigation_list_personage_to_detailCharacterFragment"
+            app:destination="@id/detailCharacterFragment"
+            app:popUpTo="@id/navigation_list_personage" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_list_episode"
@@ -42,6 +47,10 @@
         android:id="@+id/detailEpisodeFragment"
         android:name="ru.lacredin.testtasksociality.ui.episode.DetailEpisodeFragment"
         android:label="@string/detail_episode_fragment_title" />
+    <fragment
+        android:id="@+id/detailCharacterFragment"
+        android:name="ru.lacredin.testtasksociality.ui.personage.DetailCharacterFragment"
+        android:label="@string/detail_character_fragment" />
 
 
 </navigation>

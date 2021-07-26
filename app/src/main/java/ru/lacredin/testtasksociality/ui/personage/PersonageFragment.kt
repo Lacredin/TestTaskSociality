@@ -42,7 +42,7 @@ class PersonageFragment : BaseListFragment() {
         return binding.root
     }
 
-    override fun getIdDetailFragment() = R.id.detailEpisodeFragment
+    override fun getIdDetailFragment() = R.id.detailCharacterFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

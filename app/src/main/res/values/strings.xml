@@ -10,4 +10,5 @@
     <string name="progress_bar_message">Loading</string>
     <string name="detial_location_fragment_title">Detial Location</string>
     <string name="detail_episode_fragment_title">Detail Episode</string>
+    <string name="detail_character_fragment">Detail character</string>
 </resources>
